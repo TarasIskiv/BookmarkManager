@@ -18,20 +18,20 @@ namespace Bookmark.Manager.Logic.Implementation
             _encryptionService = encryptionService;
             _tokenService = tokenService;
         }
-        public async Task Login(UserLoginPayload userLogin)
+        public async Task<string> Login(UserLoginPayload userLogin)
         {
             userLogin.Password = _encryptionService.DecryptPassword(userLogin.Password);
             var user = await _userRepository.Login(userLogin);
+            if(user is default(User)) return string.Empty;
             var token = await _tokenService.GenerateToken(user);
-            //return user;
+            return token;
         }
-        public async Task SignUp(UserSignUpPayload userSignUp)
+        public async Task<string> SignUp(UserSignUpPayload userSignUp)
         {
             var newUser = userSignUp.ToUser();
             newUser.Password = _encryptionService.DecryptPassword(newUser.Password);
             var user = await _userRepository.SignUp(newUser);
-            var token = await _tokenService.GenerateToken(user);
-            //return user;
+            return await _tokenService.GenerateToken(user);
         }
     }
 }

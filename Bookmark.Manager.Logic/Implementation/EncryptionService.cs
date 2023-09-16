@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Bookmark.Manager.Core.Helpers;
 using Bookmark.Manager.Logic.Abstraction;
+using Microsoft.Extensions.Options;
 
 namespace Bookmark.Manager.Logic.Implementation
 {
@@ -10,9 +11,9 @@ namespace Bookmark.Manager.Logic.Implementation
         private readonly SecuritySettings _settings;
         private HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
 
-        public EncryptionService(SecuritySettings settings)
+        public EncryptionService(IOptions<SecuritySettings> settings)
         {
-            _settings = settings;
+            _settings = settings.Value;
         }
         public string DecryptPassword(string password)
         {

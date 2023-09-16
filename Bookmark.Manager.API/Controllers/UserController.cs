@@ -19,15 +19,29 @@ namespace Bookmark.Manager.API.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] UserLoginPayload userLogin)
         {
-            await _userService.Login(userLogin);
-            return Ok();
+            try
+            {
+                var token = await _userService.Login(userLogin);
+                return Ok(token);
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUp([FromBody] UserSignUpPayload userSignUpPayload)
         {
-            await _userService.SignUp(userSignUpPayload);
-            return Ok();
+            try
+            {
+                var token = await _userService.SignUp(userSignUpPayload);
+                return Ok(token);
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
         }
     }
 }

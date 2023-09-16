@@ -9,14 +9,14 @@ namespace Bookmark.Manager.Client.Pages
         [Inject] private IUserService _userService {get; set;} = default!;
         public bool IsInLoginState {get; set;} = true;
 
-        public  Task Login(UserLoginPayload userLogin)
+        public async Task Login(UserLoginPayload userLogin)
         {
-            throw new Exception();
+            await _userService.Login(userLogin);
         }
 
-        public  Task SignUp(UserSignUpPayload userSignUp)
+        public async Task SignUp(UserSignUpPayload userSignUp)
         {
-            throw new Exception();
+            await _userService.SignUp(userSignUp);
         }
 
         public string GetHelperText() => IsInLoginState ? "Already have an account?" : "New to Bookmark Manager?";

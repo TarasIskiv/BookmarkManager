@@ -4,7 +4,9 @@
     <ProjectReference Include="..\Bookmark.Manager.Core\Bookmark.Manager.Core.csproj" />
     <ProjectReference Include="..\Bookmark.Manager.Repository\Bookmark.Manager.Repository.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

@@ -2,7 +2,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bookmark.Manager.Core\Bookmark.Manager.Core.csproj" />
-    <ProjectReference Include="..\Bookmark.Manager.Repository\Bookmark.Manager.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
   </ItemGroup>
 
   <PropertyGroup>

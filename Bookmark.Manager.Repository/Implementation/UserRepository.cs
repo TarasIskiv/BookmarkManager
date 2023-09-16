@@ -17,7 +17,7 @@ namespace Bookmark.Manager.Repository.Implementation
         {
             var user = await Task.Run(() => _context.Users
                 .SingleOrDefault(user => user.Email.Equals(userLogin.Email) && user.Password.Equals(userLogin.Password)));
-            return user ?? new User();
+            return user ?? default!;
         }
 
         public async Task<User> SignUp(User user)

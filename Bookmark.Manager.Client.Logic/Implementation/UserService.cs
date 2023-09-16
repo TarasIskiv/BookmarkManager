@@ -15,12 +15,12 @@ namespace Bookmark.Manager.Client.Logic.Implementation
         }
         public async Task Login(UserLoginPayload userLogin)
         {
-            await _httpClient.PostAsJsonAsync("", userLogin);
+            await _httpClient.PostAsJsonAsync("api/User/Login", userLogin);
         }
 
         public async Task SignUp(UserSignUpPayload userSignUp)
         {
-            await _httpClient.PostAsJsonAsync("", userSignUp);        
+            await _httpClient.PostAsJsonAsync("api/User/SignUp", userSignUp);        
         }
     }
 }

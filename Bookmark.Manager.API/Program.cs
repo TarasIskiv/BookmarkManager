@@ -5,6 +5,9 @@ using Bookmark.Manager.Repository.Abstraction;
 using Microsoft.EntityFrameworkCore;
 using Bookmark.Manager.Repository.Implementation;
 using Bookmark.Manager.Core.Helpers;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,19 +17,44 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var securitySection = builder.Configuration.GetSection("SecuritySettings");
+builder.Services.Configure<SecuritySettings>(securitySection);
+
+var jwtSection = builder.Configuration.GetSection("JWTSettings");
+builder.Services.Configure<JWTSettings>(jwtSection);
+
+var appSettings = jwtSection.Get<JWTSettings>();
+var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = true;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 builder.Services.AddDbContext<BookmarkManagerContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("BookmarkDatabase")));
 
-var a = builder.Configuration.GetSection("SecuritySettings");
 //Services
 builder.Services.AddScoped<IBookmarkService, BookmarkService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFolderService, FolderService>();
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IEncryptionService, EncryptionService>(
-    x => new EncryptionService(new SecuritySettings()));
+builder.Services.AddScoped<IEncryptionService, EncryptionService>();
 
 //Repositories
 builder.Services.AddScoped<IBookmarkRepository, BookmarkRepository>();
