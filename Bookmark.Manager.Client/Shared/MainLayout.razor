@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider/>
+<MudThemeProvider @ref="@MudThemeProvider" Theme="MudTheme" @bind-IsDarkMode="_isDarkMode"/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 <div class="page">
