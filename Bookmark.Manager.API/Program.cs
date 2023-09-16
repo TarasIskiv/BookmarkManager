@@ -15,6 +15,13 @@ builder.Services.AddDbContext<BookmarkManagerContext>(options =>
 
 var app = builder.Build();
 
+app.UseCors(cors => cors
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials()
+);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -22,9 +29,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseBlazorFrameworkFiles();
+app.MapFallbackToFile("index.html");
+app.UseStaticFiles();
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
