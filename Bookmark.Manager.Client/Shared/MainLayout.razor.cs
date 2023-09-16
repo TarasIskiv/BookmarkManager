@@ -20,6 +20,11 @@ namespace Bookmark.Manager.Client.Shared
         {
             _isDarkMode = !_isDarkMode;
         }
+        
+        public Task LogOut()
+        {
+            throw new Exception();
+        }
         public void ConfigureCustomPalette()
         {
             MudTheme = new MudTheme()

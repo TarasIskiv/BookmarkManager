@@ -4,7 +4,24 @@
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 <div class="page">
+    <MudPaper Elevation="2" Height="7vh" Width="100vw">
+        <MudStack Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Style="width:100%; height:100%" Row="true">
+            <MudPaper Elevation="0" Style="padding-left:1.5em; width:20%">
+                <MudStack Row="true">
+                    <MudIcon Icon="@Icons.Material.Filled.Bookmark" Color="Color.Primary"/>
+                    <MudText>Bookmark Manager</MudText>
+                </MudStack>
+            </MudPaper>
+            <MudPaper Elevation="0" Style="padding-right:1.5em">
+                <MudStack Row="true">
+                    <MudButton OnClick="LogOut" Variant="Variant.Filled" Color="Color.Warning">Log out</MudButton>
+                    <MudButton OnClick="ChangeTheme" Variant="Variant.Filled" Color="Color.Primary">Change Theme</MudButton>
+                </MudStack>
+            </MudPaper>
+        </MudStack>
+    </MudPaper>
     <main>
+    
         <article class="content px-4">
             @Body
         </article>
