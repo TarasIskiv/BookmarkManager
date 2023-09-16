@@ -24,6 +24,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Bookmark.Manager.Database\Bookmark.Manager.Database.csproj" />
     <ProjectReference Include="..\Bookmark.Manager.Client\Bookmark.Manager.Client.csproj" />
+    <ProjectReference Include="..\Bookmark.Manager.Repository\Bookmark.Manager.Repository.csproj" />
+    <ProjectReference Include="..\Bookmark.Manager.Logic\Bookmark.Manager.Logic.csproj" />
   </ItemGroup>
 
 </Project>
