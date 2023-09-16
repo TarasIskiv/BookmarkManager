@@ -1,0 +1,14 @@
+<EditForm Model="@UserSignUp" OnValidSubmit="SignUp">
+<DataAnnotationsValidator/>
+    <MudPaper Elevation="2" Outlined="true">
+        <MudTextField T="string" Label="Email" @bind-Value="@UserSignUp.Email" For="(() => UserSignUp.Email)" />
+        <MudTextField T="string" Label="Password" @bind-Value="@UserSignUp.Password" For="(() => UserSignUp.Password)"
+            Error="@ArePasswordsEqual()" ErrorText="@GetErrorTextForNotEqualPasswords()"/>
+        <MudTextField T="string" Label="Password" @bind-Value="@UserSignUp.RepeatedPassword" For="(() => UserSignUp.RepeatedPassword)" 
+            Error="@ArePasswordsEqual()" ErrorText="@GetErrorTextForNotEqualPasswords()"/>
+        <br/>
+        <MudStack Row="true" Justify="Justify.SpaceBetween" Style="width:100%">
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Login</MudButton>
+        </MudStack>
+    </MudPaper>
+</EditForm>

@@ -5,7 +5,7 @@ namespace Bookmark.Manager.Repository.Abstraction
 {
     public interface IUserRepository
     {
-        Task Login(UserLoginPayload userLogin);
-        Task SignUp(User user);
+        Task<User> Login(UserLoginPayload userLogin);
+        Task<User> SignUp(User user);
     }
 }

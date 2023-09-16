@@ -10,6 +10,6 @@ namespace Bookmark.Manager.Client.Logic.Abstraction
     public interface IUserService
     {
         Task Login(UserLoginPayload userLogin);
-        Task SignUp(User user);
+        Task SignUp(UserSignUpPayload userSignUp);
     }
 }

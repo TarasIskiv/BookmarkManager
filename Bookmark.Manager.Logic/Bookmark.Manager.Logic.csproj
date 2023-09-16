@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bookmark.Manager.Core\Bookmark.Manager.Core.csproj" />
+    <ProjectReference Include="..\Bookmark.Manager.Repository\Bookmark.Manager.Repository.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

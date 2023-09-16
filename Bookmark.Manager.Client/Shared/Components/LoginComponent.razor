@@ -1,0 +1,11 @@
+<EditForm Model="@UserLogin" OnValidSubmit="Login">
+<DataAnnotationsValidator/>
+    <MudPaper Elevation="2" Outlined="true">
+        <MudTextField T="string" Label="Email" @bind-Value="@UserLogin.Email" For="(() => UserLogin.Email)" />
+        <MudTextField T="string" Label="Password" @bind-Value="@UserLogin.Password" For="(() => UserLogin.Password)" />
+        <br/>
+        <MudStack Row="true" Justify="Justify.SpaceBetween" Style="width:100%">
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Login</MudButton>
+        </MudStack>
+    </MudPaper>
+</EditForm>

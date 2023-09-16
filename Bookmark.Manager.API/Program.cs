@@ -4,6 +4,7 @@ using Bookmark.Manager.Database;
 using Bookmark.Manager.Repository.Abstraction;
 using Microsoft.EntityFrameworkCore;
 using Bookmark.Manager.Repository.Implementation;
+using Bookmark.Manager.Core.Helpers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,13 +18,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BookmarkManagerContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("BookmarkDatabase")));
 
+var a = builder.Configuration.GetSection("SecuritySettings");
 //Services
 builder.Services.AddScoped<IBookmarkService, BookmarkService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFolderService, FolderService>();
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IEncryptionService, EncryptionService>();
+builder.Services.AddScoped<IEncryptionService, EncryptionService>(
+    x => new EncryptionService(new SecuritySettings()));
 
 //Repositories
 builder.Services.AddScoped<IBookmarkRepository, BookmarkRepository>();
