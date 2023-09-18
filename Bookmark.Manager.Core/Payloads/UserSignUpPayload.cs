@@ -4,6 +4,7 @@ namespace Bookmark.Manager.Core.Payloads
 {
     public class UserSignUpPayload
     {
+        [Required]
         [EmailAddress]
         public string Email { get; set; } = default!;
         [Required]

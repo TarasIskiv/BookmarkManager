@@ -21,7 +21,7 @@ namespace Bookmark.Manager.Client.Logic.Implementation
             await _localStorageService.RemoveItemAsync(key);
         }
 
-        public async Task WriteDataToStorage(string key, Task data)
+        public async Task WriteDataToStorage<T>(string key, T data)
         {
             await _localStorageService.SetItemAsync(key, data);
         }

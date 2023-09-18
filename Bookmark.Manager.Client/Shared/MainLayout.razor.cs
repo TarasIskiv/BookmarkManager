@@ -1,11 +1,16 @@
+using Bookmark.Manager.Client.Logic.Abstraction;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace Bookmark.Manager.Client.Shared
 {
     partial class MainLayout
     {
-        public MudThemeProvider MudThemeProvider { get; set; }
-        MudTheme MudTheme { get; set; }
+        [Inject] private NavigationManager NavManager { get; set; } = default!;
+        [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+        [Inject] private IUserService UserService { get; set; } = default!;
+        public MudThemeProvider MudThemeProvider { get; set; } = default!;
+        public MudTheme MudTheme { get; set; } = default!;
         private bool _isDarkMode;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -21,9 +26,11 @@ namespace Bookmark.Manager.Client.Shared
             _isDarkMode = !_isDarkMode;
         }
         
-        public Task LogOut()
+        public async Task LogOut()
         {
-            throw new Exception();
+            await UserService.Logout();
+            await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            NavManager.NavigateTo("/authorization");
         }
         public void ConfigureCustomPalette()
         {

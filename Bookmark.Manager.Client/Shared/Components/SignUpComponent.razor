@@ -1,14 +1,17 @@
-<EditForm Model="@UserSignUp" OnValidSubmit="SignUp">
+<EditForm Model="@UserSignUp" OnValidSubmit="SignUp" style="width:30%">
 <DataAnnotationsValidator/>
-    <MudPaper Elevation="2" Outlined="true">
+    <MudText Align="Align.Center" Typo="Typo.h5">Sign Up</MudText>
+    <br/>
+    <MudPaper Elevation="2" Outlined="true" Style="padding: 1em">
         <MudTextField T="string" Label="Email" @bind-Value="@UserSignUp.Email" For="(() => UserSignUp.Email)" />
         <MudTextField T="string" Label="Password" @bind-Value="@UserSignUp.Password" For="(() => UserSignUp.Password)"
-            Error="@ArePasswordsEqual()" ErrorText="@GetErrorTextForNotEqualPasswords()"/>
-        <MudTextField T="string" Label="Password" @bind-Value="@UserSignUp.RepeatedPassword" For="(() => UserSignUp.RepeatedPassword)" 
-            Error="@ArePasswordsEqual()" ErrorText="@GetErrorTextForNotEqualPasswords()"/>
+            Error="@(!ArePasswordsEqual())" ErrorText="@GetErrorTextForNotEqualPasswords()"/>
+        <MudTextField T="string" Label="Repeated Password" @bind-Value="@UserSignUp.RepeatedPassword" For="(() => UserSignUp.RepeatedPassword)" 
+            Error="@(!ArePasswordsEqual())" ErrorText="@GetErrorTextForNotEqualPasswords()"/>
         <br/>
-        <MudStack Row="true" Justify="Justify.SpaceBetween" Style="width:100%">
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Login</MudButton>
+        <br/>
+        <MudStack Row="true" Justify="Justify.Center" Style="width:100%">
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Sign Up</MudButton>
         </MudStack>
     </MudPaper>
 </EditForm>

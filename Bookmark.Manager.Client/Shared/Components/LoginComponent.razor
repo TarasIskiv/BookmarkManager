@@ -1,10 +1,13 @@
-<EditForm Model="@UserLogin" OnValidSubmit="Login">
+<EditForm Model="@UserLogin" OnValidSubmit="Login" style="width:30%">
 <DataAnnotationsValidator/>
-    <MudPaper Elevation="2" Outlined="true">
+    <MudText Align="Align.Center" Typo="Typo.h5">Login</MudText>
+    <br/>
+    <MudPaper Elevation="2" Outlined="true" Style="padding: 1em">
         <MudTextField T="string" Label="Email" @bind-Value="@UserLogin.Email" For="(() => UserLogin.Email)" />
         <MudTextField T="string" Label="Password" @bind-Value="@UserLogin.Password" For="(() => UserLogin.Password)" />
         <br/>
-        <MudStack Row="true" Justify="Justify.SpaceBetween" Style="width:100%">
+        <br/>
+        <MudStack Row="true" Justify="Justify.Center" Style="width:100%">
             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Login</MudButton>
         </MudStack>
     </MudPaper>

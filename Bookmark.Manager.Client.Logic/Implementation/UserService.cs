@@ -9,18 +9,36 @@ namespace Bookmark.Manager.Client.Logic.Implementation
     public class UserService : IUserService
     {
         private HttpClient _httpClient;
-        public UserService(HttpClient httpClient)
+        private readonly IStorageService _storageService;
+
+        public UserService(HttpClient httpClient, IStorageService storageService)
         {
             _httpClient = httpClient;
+            _storageService = storageService;
         }
         public async Task Login(UserLoginPayload userLogin)
         {
-            await _httpClient.PostAsJsonAsync("api/User/Login", userLogin);
+            var response = await _httpClient.PostAsJsonAsync("api/User/Login", userLogin);
+            if(response.IsSuccessStatusCode) await WriteToken(response.Content);
+           
         }
 
         public async Task SignUp(UserSignUpPayload userSignUp)
         {
-            await _httpClient.PostAsJsonAsync("api/User/SignUp", userSignUp);        
+            var response = await _httpClient.PostAsJsonAsync("api/User/SignUp", userSignUp);  
+            if(response.IsSuccessStatusCode) await WriteToken(response.Content);
+     
+        }
+
+        private async Task WriteToken(HttpContent content)
+        {
+            string parsedResponse = await content.ReadAsStringAsync();
+            await _storageService.WriteDataToStorage<string>("AuthToken", parsedResponse);
+        }
+
+        public async Task Logout()
+        {
+            await _storageService.RemoveDataFromStorage("AuthToken");
         }
     }
 }

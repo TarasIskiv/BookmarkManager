@@ -3,7 +3,8 @@ namespace Bookmark.Manager.Core.Payloads
 {
     public class UserLoginPayload
     {
-        [EmailAddressAttribute]
+        [Required]
+        [EmailAddress]
         public string Email { get; set; } = default!;
         [Required]
 		[MaxLength(40)]

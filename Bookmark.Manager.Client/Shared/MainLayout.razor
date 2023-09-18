@@ -14,14 +14,17 @@
             </MudPaper>
             <MudPaper Elevation="0" Style="padding-right:1.5em">
                 <MudStack Row="true">
-                    <MudButton OnClick="LogOut" Variant="Variant.Filled" Color="Color.Warning">Log out</MudButton>
+                    <AuthorizeView>
+                        <Authorized>
+                            <MudButton OnClick="LogOut" Variant="Variant.Filled" Color="Color.Warning">Log out</MudButton>
+                        </Authorized>
+                    </AuthorizeView>
                     <MudButton OnClick="ChangeTheme" Variant="Variant.Filled" Color="Color.Primary">Change Theme</MudButton>
                 </MudStack>
             </MudPaper>
         </MudStack>
     </MudPaper>
     <main>
-    
         <article class="content px-4">
             @Body
         </article>

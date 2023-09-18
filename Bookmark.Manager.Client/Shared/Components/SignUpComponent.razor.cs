@@ -11,6 +11,7 @@ namespace Bookmark.Manager.Client.Shared.Components
 
         public bool ArePasswordsEqual()
         {
+            if(string.IsNullOrEmpty(UserSignUp.Password) || string.IsNullOrEmpty(UserSignUp.Password)) return true;
             return Equals(UserSignUp.Password, UserSignUp.RepeatedPassword);
         }
 

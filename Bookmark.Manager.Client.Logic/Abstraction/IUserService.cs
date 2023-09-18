@@ -11,5 +11,6 @@ namespace Bookmark.Manager.Client.Logic.Abstraction
     {
         Task Login(UserLoginPayload userLogin);
         Task SignUp(UserSignUpPayload userSignUp);
+        Task Logout();
     }
 }

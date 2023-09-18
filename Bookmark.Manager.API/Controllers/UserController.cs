@@ -7,11 +7,11 @@ namespace Bookmark.Manager.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : BookmarkManagerControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public UserController(IHttpContextAccessor httpContextAccessor, IUserService userService) : base(httpContextAccessor)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }
@@ -38,8 +38,9 @@ namespace Bookmark.Manager.API.Controllers
                 var token = await _userService.SignUp(userSignUpPayload);
                 return Ok(token);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                var a = ex;
                 return BadRequest();
             }
         }

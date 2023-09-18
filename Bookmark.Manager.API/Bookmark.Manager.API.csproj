@@ -6,9 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Bookmark.Manager.Api' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,6 +27,10 @@
     <ProjectReference Include="..\Bookmark.Manager.Client\Bookmark.Manager.Client.csproj" />
     <ProjectReference Include="..\Bookmark.Manager.Repository\Bookmark.Manager.Repository.csproj" />
     <ProjectReference Include="..\Bookmark.Manager.Logic\Bookmark.Manager.Logic.csproj" />
+    <ProjectReference Include="..\Bookmark.Manager.Client.Logic\Bookmark.Manager.Client.Logic.csproj" />
+    <ProjectReference Include="..\Bookmark.Manager.Core\Bookmark.Manager.Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
