@@ -26,5 +26,10 @@ namespace Bookmark.Manager.Repository.Implementation
             await _context.SaveChangesAsync();
             return _context.Users.SingleOrDefault(user => user.Email.Equals(user.Email) && user.Password.Equals(user.Password))!;
         }
+
+        public async Task<bool> VerifyEmailAvailability(string email)
+        {
+            return await Task.Run(() => !_context.Users.Any(user => user.Email.Equals(email)));
+        }
     }
 }

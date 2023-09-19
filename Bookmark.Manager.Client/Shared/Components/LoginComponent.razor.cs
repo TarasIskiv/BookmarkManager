@@ -14,5 +14,12 @@ namespace Bookmark.Manager.Client.Shared.Components
             if(!context.Validate()) return;
             await UserChanged.InvokeAsync(UserLogin);
         }
+
+        private bool IsSubmitButtonDisabled(EditContext context)
+        {
+            if (string.IsNullOrWhiteSpace(UserLogin.Email) || string.IsNullOrWhiteSpace(UserLogin.Password)) return true;
+
+            return !context.Validate();
+        }
     }
 }

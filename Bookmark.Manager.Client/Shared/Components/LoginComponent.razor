@@ -8,7 +8,10 @@
         <br/>
         <br/>
         <MudStack Row="true" Justify="Justify.Center" Style="width:100%">
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success">Login</MudButton>
+            <MudButton ButtonType="ButtonType.Submit"
+                       Variant="Variant.Filled"
+                       Color="Color.Success"
+                       Disabled="@IsSubmitButtonDisabled(context)">Login</MudButton>
         </MudStack>
     </MudPaper>
 </EditForm>

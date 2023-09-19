@@ -40,5 +40,10 @@ namespace Bookmark.Manager.Client.Logic.Implementation
         {
             await _storageService.RemoveDataFromStorage("AuthToken");
         }
+
+        public async Task<bool> VerifyEmailAvailability(string email)
+        {
+            return await _httpClient.GetFromJsonAsync<bool>($"api/User/DoesEmailAvailable?email={email}");
+        }
     }
 }

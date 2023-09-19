@@ -7,5 +7,6 @@ namespace Bookmark.Manager.Logic.Abstraction
     {
         Task<string> Login(UserLoginPayload userLogin);
         Task<string> SignUp(UserSignUpPayload userSignUp);
+        Task<bool> VerifyEmailAvailability(string email);
     }
 }

@@ -33,5 +33,10 @@ namespace Bookmark.Manager.Logic.Implementation
             var user = await _userRepository.SignUp(newUser);
             return await _tokenService.GenerateToken(user);
         }
+
+        public async Task<bool> VerifyEmailAvailability(string email)
+        {
+            return await _userRepository.VerifyEmailAvailability(email);
+        }
     }
 }
