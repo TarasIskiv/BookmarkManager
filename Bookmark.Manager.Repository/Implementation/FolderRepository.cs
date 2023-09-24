@@ -1,33 +1,48 @@
 using Bookmark.Manager.Core.Models;
+using Bookmark.Manager.Database;
 using Bookmark.Manager.Repository.Abstraction;
 
 namespace Bookmark.Manager.Repository.Implementation
 {
     public class FolderRepository : IFolderRepository
     {
-        public Task CreateFolder(Folder folder)
+        private readonly BookmarkManagerContext _context;
+
+        public FolderRepository(BookmarkManagerContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<Folder> GetFolder(int folderId)
+        public async Task CreateFolder(Folder folder)
         {
-            throw new NotImplementedException();
+            await _context.Folders.AddAsync(folder);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<List<Folder>> GetNestedFolders(int parentFolderId)
+        public async Task<Folder> GetFolder(int userId, int folderId)
         {
-            throw new NotImplementedException();
+            var folder = await Task.Run(() => _context.Folders.SingleOrDefault(folder => folder.UserId == userId && folder.Id == folderId));
+            return folder ?? new Folder();
         }
 
-        public Task RemoveFolder(int folderId)
+        public async Task<List<Folder>> GetNestedFolders(int userId, int? parentFolderId)
         {
-            throw new NotImplementedException();
+            var folders = await Task.Run(() => _context.Folders.Where(folder => folder.UserId == userId && folder.ParentFolderId == parentFolderId).ToList());
+            return folders ?? new ();
         }
 
-        public Task UpdateFolder(int folderId, Folder folder)
+        public async Task RemoveFolder(Folder folder)
         {
-            throw new NotImplementedException();
+            _context.Folders.Remove(folder);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateFolder(Folder folder)
+        {
+            var dbFolder = await GetFolder(folder.UserId, folder.Id);
+            if (dbFolder is null || dbFolder.Id == 0) return;
+            _context.Folders.Update(folder);
+            await _context.SaveChangesAsync();
         }
     }
 }

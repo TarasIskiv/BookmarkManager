@@ -1,9 +1,11 @@
+using Bookmark.Manager.Core.Helpers;
+
 namespace Bookmark.Manager.Logic.Abstraction
 {
     public interface ICacheService
     {
-        Task WriteToCache<T>(string key, T data, TimeSpan time);
+        Task UpdateCache<T>(string key, T data);
         Task<T> GetDataFromCahce<T>(string key);
-        Task RemoveFromCahce(string key);
+        string GenerateKey(int userId, int? parentFolderId, RedisCacheKey key);
     }
 }

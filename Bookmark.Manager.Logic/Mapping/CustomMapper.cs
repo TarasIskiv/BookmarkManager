@@ -13,5 +13,15 @@ namespace Bookmark.Manager.Logic.Mapping
                 Password = userSignUp.Password
             };
         }
+
+        public static Folder ToFolder(this EditableFolderPayload editableFolder)
+        {
+            return new Folder()
+            {
+                Name = editableFolder.Name,
+                ParentFolderId = editableFolder.ParentFolderId,
+                UserId = editableFolder.UserId
+            };
+        }
     }
 }

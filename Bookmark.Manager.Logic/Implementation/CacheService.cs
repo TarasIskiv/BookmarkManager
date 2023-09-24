@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Bookmark.Manager.Core.Helpers;
 using Bookmark.Manager.Logic.Abstraction;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -24,16 +25,23 @@ namespace Bookmark.Manager.Logic.Implementation
             return parsedData ?? default!;
         }
 
-        public async Task WriteToCache<T>(string key, T data, TimeSpan time)
-        {
-            var serializedData = JsonSerializer.Serialize(data);
-            await _cache.SetStringAsync(key, serializedData, _options);
-
-        }
-
-        public async Task RemoveFromCahce(string key)
+        private async Task RemoveFromCahce(string key)
         {
             await _cache.RemoveAsync(key);
+        }
+
+        public string GenerateKey(int userId, int? parentFolderId, RedisCacheKey key)
+        {
+            var builderParams = new List<string>() { userId.ToString(), key.ToString() };
+            if (parentFolderId.HasValue) builderParams.Add(parentFolderId.Value.ToString());
+            return String.Join("/", builderParams);
+        }
+
+        public async Task UpdateCache<T>(string key, T data)
+        {
+            await RemoveFromCahce(key);
+            var serializedData = JsonSerializer.Serialize(data);
+            await _cache.SetStringAsync(key, serializedData, _options);
         }
     }
 }
