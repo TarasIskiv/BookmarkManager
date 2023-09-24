@@ -8,6 +8,8 @@ using Bookmark.Manager.Core.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var securitySection = builder.Configuration.GetSection("SecuritySettings");
@@ -40,6 +42,13 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.AddDbContext<BookmarkManagerContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("BookmarkDatabase")));
+
+builder.Services.AddStackExchangeRedisCache(opt =>
+    {
+        opt.Configuration = builder.Configuration.GetConnectionString("BookmarkRedis");
+        opt.InstanceName = "BookmarkManager";
+    });
+
 
 //Services
 builder.Services.AddScoped<IBookmarkService, BookmarkService>();
@@ -76,10 +85,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-/*
-app.UseBlazorFrameworkFiles();
-app.MapFallbackToFile("index.html");
-app.UseStaticFiles();*/
+
 app.UseHttpsRedirection();
 
 app.MapControllers();
