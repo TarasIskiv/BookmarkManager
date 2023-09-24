@@ -35,7 +35,10 @@ namespace Bookmark.Manager.Logic.Implementation
             var key = _cacheService.GenerateKey(userId, folderId, RedisCacheKey.Bookmarks);
             var bookmarks = await _cacheService.GetDataFromCahce<List<UserBookmark>>(key);
             if (bookmarks is default(List<UserBookmark>) || !bookmarks.Any())
+            {
                 bookmarks = await _bookmarkRepository.GetFolderBookmarks(userId, folderId);
+                await _cacheService.UpdateCache(key, bookmarks);
+            }
 
             return bookmarks;
         }

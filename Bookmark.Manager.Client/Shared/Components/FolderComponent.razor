@@ -1,0 +1,38 @@
+﻿@if (Folders.Count() > 0)
+{
+    <div id="unique_id_scroll_section" class="ma-0" style="height:30vh;overflow: auto;">
+        <MudPaper Elevation="2" Outlined="true" >
+            <MudStack Style="height:100%; width:100%" AlignItems="AlignItems.Center">
+                @foreach (var folder in Folders)
+                {
+                    
+                    <MudPaper Class="mud-theme-primary" Height="6vh" Width="100%" Style="padding: 0 1em">
+                        <MudStack Row="true" Style="height:100%; width:100%" Justify="Justify.SpaceBetween">
+                            <MudText>@folder.Name</MudText>
+                            <div>
+                                <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Edit" Color="Color.Warning" IconColor="Color.Warning" OnClick="@(() => EditFolder(folder))">Edit</MudButton>
+                                <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.ArrowForward" Color="Color.Error" IconColor="Color.Error" OnClick="@(() => Navigate(folder.Id))">Go</MudButton>
+                            </div>
+                        </MudStack>
+                    </MudPaper>
+                        
+                }
+            </MudStack>
+            <MudScrollToTop TopOffset="100"
+                            Selector="#unique_id_scroll_section"
+                            VisibleCssClass="visible absolute"
+                            HiddenCssClass="invisible">
+            </MudScrollToTop>
+        </MudPaper>
+    </div>
+    <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="@AddNewFolder">Add Folder</MudButton>
+}
+else
+{
+    <MudStack AlignItems="AlignItems.Center">
+        <MudText Typo="Typo.body1">Looks like you don't have any folder</MudText>
+        <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="@AddNewFolder">Create Folder</MudButton>
+    </MudStack>
+}
+
+

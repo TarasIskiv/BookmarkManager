@@ -51,6 +51,7 @@ namespace Bookmark.Manager.API.Controllers
         {
             try
             {
+                editableFolder.UserId = UserId;
                 await _folderService.CreateFolder(editableFolder);
                 return Ok();
             }

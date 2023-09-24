@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Bookmark.Manager.Core\Bookmark.Manager.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Shared\Dialogs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Shared\Dialogs\" />
+  </ItemGroup>
 </Project>

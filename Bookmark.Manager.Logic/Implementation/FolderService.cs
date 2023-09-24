@@ -35,8 +35,10 @@ namespace Bookmark.Manager.Logic.Implementation
             var key = _cacheService.GenerateKey(userId, parentFolderId, RedisCacheKey.Folders);
             var folders = await _cacheService.GetDataFromCahce<List<Folder>>(key);
             if(folders is default(List<Folder>) || !folders.Any())
+            {
                 folders = await _folderRepository.GetNestedFolders(userId, parentFolderId);
-            
+                await _cacheService.UpdateCache(key, folders);
+            }
             return folders;
         }
 

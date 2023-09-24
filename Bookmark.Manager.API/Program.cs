@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,11 +47,12 @@ builder.Services.AddDbContext<BookmarkManagerContext>(options =>
 builder.Services.AddStackExchangeRedisCache(opt =>
     {
         opt.Configuration = builder.Configuration.GetConnectionString("BookmarkRedis");
-        opt.InstanceName = "BookmarkManager";
+        opt.InstanceName = "BookmarkManager/";
     });
 
 
 //Services
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IBookmarkService, BookmarkService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFolderService, FolderService>();

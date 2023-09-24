@@ -1,5 +1,7 @@
 @page "/"
 @page "/home"
-@page "/bookmarks"
+@page "/home/{ParentFolderId:int}"
 @attribute [Authorize]
-Hello
+<MudText Typo="Typo.h5">Folders</MudText>
+<br />
+<FolderComponent Folders="@Folders" FoldersRefreshed="@LoadPageData" FolderNavigated="@MoveToSelectedFolder"></FolderComponent>

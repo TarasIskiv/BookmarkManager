@@ -11,7 +11,7 @@ namespace Bookmark.Manager.API.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        public int UserId => int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "abc")?.Value ?? "0");
+        public int UserId => int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? "0");
 
     }
 }

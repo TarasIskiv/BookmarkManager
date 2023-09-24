@@ -1,0 +1,17 @@
+﻿<MudDialog Style="width: 300px">
+    <DialogContent>
+        <EditForm EditContext="@_folderContext" style="width:100%">
+            <DataAnnotationsValidator />
+            <MudTextField T="string" Label="Name" @bind-Value="@EditableFolder.Name" For="(() => EditableFolder.Name)" />
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Style="width:100%; padding: 0 1em">
+            <MudButton OnClick="Cancel" Color="Color.Error" ButtonType="ButtonType.Reset">Cancel</MudButton>
+            <MudButton ButtonType="ButtonType.Submit"
+                       Variant="Variant.Filled"
+                       Color="Color.Success"
+                       OnClick="Save">Save</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>

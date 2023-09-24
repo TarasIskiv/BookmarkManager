@@ -1,33 +1,45 @@
+using System.Net.Http.Json;
 using Bookmark.Manager.Client.Logic.Abstraction;
 using Bookmark.Manager.Core.Models;
+using Bookmark.Manager.Core.Payloads;
 
 namespace Bookmark.Manager.Client.Logic.Implementation
 {
     public class FolderService : IFolderService
     {
-        public Task CreateFolder(Folder folder)
+        private readonly HttpClient _client;
+
+        public FolderService(HttpClient client)
         {
-            throw new NotImplementedException();
+            _client = client;
+        }
+        public async Task CreateFolder(EditableFolderPayload folder)
+        {
+            await _client.PostAsJsonAsync("api/Folder/AddFolder", folder);
         }
 
-        public Task<Folder> GetFolder(int folderId)
+        public async Task<Folder> GetFolder(int folderId)
         {
-            throw new NotImplementedException();
+            var folder = await _client.GetFromJsonAsync<Folder>($"api/Folder/GetFolder?folderId={folderId}");
+            return folder ?? new();
         }
 
-        public Task<List<Folder>> GetNestedFolders(int parentFolderId)
+        public async Task<List<Folder>> GetNestedFolders(int? parentFolderId)
         {
-            throw new NotImplementedException();
+            var folders = await _client.GetFromJsonAsync<List<Folder>>($"api/Folder/GetFolders?parentFolderId={parentFolderId}");
+            return folders ?? new();
         }
 
-        public Task RemoveFolder(int folderId)
+        public async Task RemoveFolder(int folderId)
         {
-            throw new NotImplementedException();
+            await _client.DeleteAsync($"api/Folder/RemoveFolder?folderId={folderId}");
         }
 
-        public Task UpdateFolder(int folderId, Folder folder)
+        public async Task UpdateFolder(int folderId, EditableFolderPayload folder)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Put, $"api/Folder/UpdateFolder?folderId={folderId}");
+            request.Content = JsonContent.Create(folder);
+            await _client.SendAsync(request);
         }
     }
 }
