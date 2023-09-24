@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using Bookmark.Manager.Client.Logic.Abstraction;
+using Bookmark.Manager.Core.Helpers;
 using Bookmark.Manager.Core.Models;
 using Bookmark.Manager.Core.Payloads;
 
@@ -33,12 +34,12 @@ namespace Bookmark.Manager.Client.Logic.Implementation
         private async Task WriteToken(HttpContent content)
         {
             string parsedResponse = await content.ReadAsStringAsync();
-            await _storageService.WriteDataToStorage<string>("AuthToken", parsedResponse);
+            await _storageService.WriteDataToStorage<string>(CacheKey.AuthToken.ToString(), parsedResponse);
         }
 
         public async Task Logout()
         {
-            await _storageService.RemoveDataFromStorage("AuthToken");
+            await _storageService.RemoveDataFromStorage(CacheKey.AuthToken.ToString());
         }
 
         public async Task<bool> VerifyEmailAvailability(string email)

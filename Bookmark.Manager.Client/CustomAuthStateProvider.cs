@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
 using Bookmark.Manager.Client.Logic.Abstraction;
+using Bookmark.Manager.Core.Helpers;
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Bookmark.Manager.Client
@@ -19,7 +20,7 @@ namespace Bookmark.Manager.Client
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var token = await _storageService.GetDataFromStorage<string>("AuthToken");
+            var token = await _storageService.GetDataFromStorage<string>(CacheKey.AuthToken.ToString());
             var identity = new ClaimsIdentity();
             _client.DefaultRequestHeaders.Authorization = null;
 
@@ -32,7 +33,7 @@ namespace Bookmark.Manager.Client
                 }
                 catch
                 {
-                    await _storageService.RemoveDataFromStorage("AuthToken");
+                    await _storageService.RemoveDataFromStorage(CacheKey.AuthToken.ToString());
                     identity = new ClaimsIdentity();
                 }
             }
