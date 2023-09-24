@@ -3,6 +3,7 @@ using Bookmark.Manager.Client.Logic.Abstraction;
 using Bookmark.Manager.Core.Payloads;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using MudBlazor;
 
 namespace Bookmark.Manager.Client.Shared.Components
 {
@@ -12,6 +13,13 @@ namespace Bookmark.Manager.Client.Shared.Components
         [Inject] private IUserService _userService { get; set; } = default!;
         public UserSignUpPayload UserSignUp {get; set;} = new();
         public bool DoesEmailAvailable { get; set; } = true;
+
+        public InputType PasswordType { get; set; } = InputType.Password;
+        public string PasswordVisibilityIcon = Icons.Material.Filled.VisibilityOff;
+
+        public InputType RepeatedPasswordType { get; set; } = InputType.Password;
+        public string RepeatedPasswordVisibilityIcon = Icons.Material.Filled.VisibilityOff;
+
         public bool ArePasswordsEqual()
         {
             if(string.IsNullOrEmpty(UserSignUp.Password) || string.IsNullOrEmpty(UserSignUp.Password)) return true;
@@ -50,6 +58,22 @@ namespace Bookmark.Manager.Client.Shared.Components
             if (!DoesEmailAvailable) return false;
 
             return true;
+        }
+
+        public void ChangePasswordVisibility(bool isMainPassword)
+        {
+            if(isMainPassword)
+            {
+
+                PasswordVisibilityIcon = InputType.Password == PasswordType ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
+                PasswordType = InputType.Password == PasswordType ? InputType.Text : InputType.Password;
+            }
+            else
+            {
+                RepeatedPasswordVisibilityIcon = InputType.Password == RepeatedPasswordType ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
+                RepeatedPasswordType = InputType.Password == RepeatedPasswordType ? InputType.Text : InputType.Password;
+            }
+            StateHasChanged();
         }
 
     }

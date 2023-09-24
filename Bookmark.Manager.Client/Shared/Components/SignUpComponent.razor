@@ -4,9 +4,18 @@
     <br/>
     <MudPaper Elevation="2" Outlined="true" Style="padding: 1em">
         <MudTextField T="string" Label="Email" @bind-Value="@UserSignUp.Email" For="(() => UserSignUp.Email)" Error="@(!DoesEmailAvailable)" ErrorText="@GetErrorTextForTakenEmail()"/>
-        <MudTextField T="string" Label="Password" @bind-Value="@UserSignUp.Password" For="(() => UserSignUp.Password)"
+        <MudTextField T="string"
+                      InputType="@PasswordType"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@PasswordVisibilityIcon"
+                      OnAdornmentClick="@(() => ChangePasswordVisibility(true))"
+                      Label="Password" @bind-Value="@UserSignUp.Password" For="(() => UserSignUp.Password)"
             Error="@(!ArePasswordsEqual())" ErrorText="@GetErrorTextForNotEqualPasswords()"/>
-        <MudTextField T="string" Label="Repeated Password" @bind-Value="@UserSignUp.RepeatedPassword" For="(() => UserSignUp.RepeatedPassword)" 
+        <MudTextField T="string"
+                      InputType="@RepeatedPasswordType"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@RepeatedPasswordVisibilityIcon"
+                      OnAdornmentClick="@(() => ChangePasswordVisibility(false))" Label="Repeated Password" @bind-Value="@UserSignUp.RepeatedPassword" For="(() => UserSignUp.RepeatedPassword)" 
             Error="@(!ArePasswordsEqual())" ErrorText="@GetErrorTextForNotEqualPasswords()"/>
         <br/>
         <br/>

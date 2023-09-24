@@ -4,7 +4,12 @@
     <br/>
     <MudPaper Elevation="2" Outlined="true" Style="padding: 1em">
         <MudTextField T="string" Label="Email" @bind-Value="@UserLogin.Email" For="(() => UserLogin.Email)" />
-        <MudTextField T="string" Label="Password" @bind-Value="@UserLogin.Password" For="(() => UserLogin.Password)" />
+        <MudTextField T="string"
+                      InputType="@PasswordType"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@PasswordVisibilityIcon"
+                      OnAdornmentClick="ChangePasswordVisibility"
+                      Label="Password" @bind-Value="@UserLogin.Password" For="(() => UserLogin.Password)" />
         <br/>
         <br/>
         <MudStack Row="true" Justify="Justify.Center" Style="width:100%">
