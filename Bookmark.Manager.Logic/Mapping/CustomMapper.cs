@@ -23,5 +23,17 @@ namespace Bookmark.Manager.Logic.Mapping
                 UserId = editableFolder.UserId
             };
         }
+
+        public static UserBookmark ToBookmark(this EditableBookmarkPayload editableBookmark)
+        {
+            return new UserBookmark()
+            {
+                FolderId = editableBookmark.FolderId,
+                Name = editableBookmark.Name,
+                UserId = editableBookmark.UserId,
+                URL = editableBookmark.URL,
+                Color = editableBookmark.Color
+            };
+        }
     }
 }
