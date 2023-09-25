@@ -39,12 +39,14 @@ namespace Bookmark.Manager.Client.Shared
                 Palette = new PaletteLight()
                 {
                     Primary = Colors.Teal.Darken4,
-                    Secondary = Colors.Teal.Darken1
+                    Secondary = Colors.Teal.Darken1,
+                    Info = Colors.Teal.Lighten5
                 },
                 PaletteDark = new PaletteDark()
                 {
                     Primary = Colors.Teal.Lighten3,
-                    Secondary = Colors.Teal.Lighten1
+                    Secondary = Colors.Teal.Lighten1,
+                    Info = Colors.Shades.Black
                 }
             };
         }

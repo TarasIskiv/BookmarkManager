@@ -2,6 +2,4 @@
 @page "/home"
 @page "/home/{ParentFolderId:int}"
 @attribute [Authorize]
-<MudText Typo="Typo.h5">Folders</MudText>
-<br />
-<FolderComponent Folders="@Folders" FoldersRefreshed="@LoadPageData" FolderNavigated="@MoveToSelectedFolder"></FolderComponent>
+<FolderComponent Folders="@Folders" FoldersRefreshed="@LoadPageData" FolderNavigated="@MoveToSelectedFolder" IsRemovingDisabled="IsRemovingDisabled" CurrentFolderId="ParentFolderId"></FolderComponent>

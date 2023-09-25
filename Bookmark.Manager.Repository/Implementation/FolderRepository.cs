@@ -41,7 +41,7 @@ namespace Bookmark.Manager.Repository.Implementation
         {
             var dbFolder = await GetFolder(folder.UserId, folder.Id);
             if (dbFolder is null || dbFolder.Id == 0) return;
-            _context.Folders.Update(folder);
+            dbFolder.Name = folder.Name;
             await _context.SaveChangesAsync();
         }
     }

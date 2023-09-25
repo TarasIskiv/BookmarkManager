@@ -13,7 +13,7 @@ namespace Bookmark.Manager.Client.Pages
         [Inject] public NavigationManager NavManager { get; set; } = default!;
         private List<Folder> Folders { get; set; } = new();
         private List<UserBookmark> Bookmarks { get; set; } = new();
-
+        public bool IsRemovingDisabled { get; set; } = true;
         protected override async Task OnParametersSetAsync()
         {
             await LoadPageData();
@@ -22,6 +22,7 @@ namespace Bookmark.Manager.Client.Pages
         public async Task LoadPageData()
         {
             Folders = await FolderService.GetNestedFolders(ParentFolderId);
+            IsRemovingDisabled = Folders.Any();
             StateHasChanged();
         }
 

@@ -11,7 +11,9 @@ namespace Bookmark.Manager.Client.Shared.Components
 	partial class FolderComponent
 	{
 		[Parameter] public List<Folder> Folders { get; set; } = new();
-		[Parameter] public EventCallback FoldersRefreshed { get; set; } = default!;
+		[Parameter] public bool IsRemovingDisabled { get; set; } = new();
+		[Parameter] public int? CurrentFolderId { get; set; }
+        [Parameter] public EventCallback FoldersRefreshed { get; set; } = default!;
         [Parameter] public EventCallback<int> FolderNavigated { get; set; } = default!;
         [Inject] public IDialogService DialogService { get; set; } = default!;
 		[Inject] public IFolderService FolderService { get; set; } = default!;
@@ -56,6 +58,11 @@ namespace Bookmark.Manager.Client.Shared.Components
 			await FolderService.CreateFolder(folder!);
             await FoldersRefreshed.InvokeAsync();
         }
+
+		public async Task RemoveFolder()
+		{
+			await FolderService.RemoveFolder(CurrentFolderId!.Value);
+		}
 
 		public async Task Navigate(int folderId)
 		{
