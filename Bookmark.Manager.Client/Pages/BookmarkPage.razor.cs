@@ -7,7 +7,7 @@ namespace Bookmark.Manager.Client.Pages
 {
 	partial class BookmarkPage
 	{
-		[Parameter] public int? ParentFolderId { get; set; } = null;
+		[Parameter, SupplyParameterFromQuery(Name = "ParentFolderId")] public int? ParentFolderId { get; set; } = null;
         [Inject] public IFolderService FolderService { get; set; } = default!;
         [Inject] public IBookmarkService BookmarkService { get; set; } = default!;
         [Inject] public NavigationManager NavManager { get; set; } = default!;
@@ -22,13 +22,14 @@ namespace Bookmark.Manager.Client.Pages
         public async Task LoadPageData()
         {
             Folders = await FolderService.GetNestedFolders(ParentFolderId);
-            IsRemovingDisabled = Folders.Any();
+            if(ParentFolderId is not null) Bookmarks = await BookmarkService.GetFolderBookmarks(ParentFolderId.Value);
+            IsRemovingDisabled = Folders.Any() || Bookmarks.Any();
             StateHasChanged();
         }
 
         public void MoveToSelectedFolder(int id)
         {
-            NavManager.NavigateTo($"/home/{id}");
+            NavManager.NavigateTo($"/home?ParentFolderId={id}");
         }
     }
 }

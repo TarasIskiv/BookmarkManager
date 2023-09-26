@@ -38,7 +38,7 @@ namespace Bookmark.Manager.API.Controllers
             try
             {
                 var bookmarks = await _bookmarkService.GetFolderBookmarks(UserId, folderId);
-                return Ok();
+                return Ok(bookmarks);
             }
             catch (Exception)
             {

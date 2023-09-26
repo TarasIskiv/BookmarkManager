@@ -1,5 +1,8 @@
 @page "/"
 @page "/home"
-@page "/home/{ParentFolderId:int}"
 @attribute [Authorize]
 <FolderComponent Folders="@Folders" FoldersRefreshed="@LoadPageData" FolderNavigated="@MoveToSelectedFolder" IsRemovingDisabled="IsRemovingDisabled" CurrentFolderId="ParentFolderId"></FolderComponent>
+@if(ParentFolderId is not null)
+{
+    <BookmarkComponent Bookmarks="Bookmarks" CurrentFolderId="ParentFolderId.Value" BookmarksChanged="LoadPageData"></BookmarkComponent>
+}

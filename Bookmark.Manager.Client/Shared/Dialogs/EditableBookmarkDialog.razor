@@ -1,0 +1,20 @@
+﻿<MudDialog Style="width: 300px">
+    <DialogContent>
+        <EditForm EditContext="@_bookmarkContext" style="width:100%">
+            <DataAnnotationsValidator />
+            <MudTextField T="string" Label="Name" @bind-Value="@EditableBookmark.Name" For="(() => EditableBookmark.Name)" />
+            <MudTextField T="string" Label="URL" @bind-Value="@EditableBookmark.URL" For="(() => EditableBookmark.URL)" />
+            <MudColorPicker Label="Basic Color Picker" @bind-Text="@EditableBookmark.Color" Style="@($"color: {EditableBookmark.Color ?? Colors.Grey.Default};")" Placeholder="Select Color" />
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Style="width:100%; padding: 0 1em">
+            <MudButton OnClick="Cancel" Color="Color.Error" ButtonType="ButtonType.Reset">Cancel</MudButton>
+            <MudButton ButtonType="ButtonType.Submit"
+                       Variant="Variant.Filled"
+                       Disabled="@IsSaveButtonDisabled()"
+                       Color="Color.Success"
+                       OnClick="Save">Save</MudButton>
+        </MudStack>
+    </DialogActions>
+</MudDialog>

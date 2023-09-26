@@ -1,23 +1,45 @@
+using System.Net.Http.Json;
 using Bookmark.Manager.Client.Logic.Abstraction;
 using Bookmark.Manager.Core.Models;
+using Bookmark.Manager.Core.Payloads;
 
 namespace Bookmark.Manager.Client.Logic.Implementation
 {
     public class BookmarkService : IBookmarkService
     {
-        public Task<List<UserBookmark>> GetFolderBookmarks(int folderId)
+        private readonly HttpClient _client;
+
+        public BookmarkService(HttpClient client)
         {
-            throw new NotImplementedException();
+            _client = client;
+        }
+        public async Task AddBookmark(EditableBookmarkPayload editableBookmark)
+        {
+            await _client.PostAsJsonAsync("api/Bookmark/AddBookmark", editableBookmark);
         }
 
-        public Task RemoveBookmark(int id, UserBookmark bookmark)
+        public async Task<UserBookmark> GetBookmark(int id)
         {
-            throw new NotImplementedException();
+            var bookmark = await _client.GetFromJsonAsync<UserBookmark>($"api/Bookmark/GetBookmark?bookmarkId={id}");
+            return bookmark ?? new ();
         }
 
-        public Task UpdateBookmark(int id, UserBookmark bookmark)
+        public async Task<List<UserBookmark>> GetFolderBookmarks(int folderId)
         {
-            throw new NotImplementedException();
+            var bookmarks = await _client.GetFromJsonAsync<List<UserBookmark>>($"api/Bookmark/GetBookmarks?folderId={folderId}");
+            return bookmarks ?? new();
+        }
+
+        public async Task RemoveBookmark(int id)
+        {
+            await _client.DeleteAsync($"api/Bookmark/RemoveBookmark?bookmarkId={id}");
+        }
+
+        public async Task UpdateBookmark(int bookmarkId, EditableBookmarkPayload bookmark)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Put, $"api/Bookmark/UpdateBookmark?folderId={bookmarkId}");
+            request.Content = JsonContent.Create(bookmark);
+            await _client.SendAsync(request);
         }
     }
 }
