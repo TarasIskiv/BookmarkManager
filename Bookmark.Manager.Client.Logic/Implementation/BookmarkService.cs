@@ -37,7 +37,7 @@ namespace Bookmark.Manager.Client.Logic.Implementation
 
         public async Task UpdateBookmark(int bookmarkId, EditableBookmarkPayload bookmark)
         {
-            var request = new HttpRequestMessage(HttpMethod.Put, $"api/Bookmark/UpdateBookmark?folderId={bookmarkId}");
+            var request = new HttpRequestMessage(HttpMethod.Put, $"api/Bookmark/UpdateBookmark?bookmarkId={bookmarkId}");
             request.Content = JsonContent.Create(bookmark);
             await _client.SendAsync(request);
         }

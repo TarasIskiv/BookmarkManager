@@ -4,6 +4,7 @@ using Bookmark.Manager.Client.Shared.Dialogs;
 using Bookmark.Manager.Core.Models;
 using Bookmark.Manager.Core.Payloads;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
 
 namespace Bookmark.Manager.Client.Shared.Components
@@ -15,6 +16,7 @@ namespace Bookmark.Manager.Client.Shared.Components
         [Parameter] public int CurrentFolderId { get; set; }
 		[Inject] public IBookmarkService BookmarkService { get; set; } = default!;
         [Inject] public IDialogService DialogService { get; set; } = default!;
+        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
         private DialogOptions _dialogOptions = new DialogOptions()
         {
             DisableBackdropClick = true,
@@ -67,10 +69,10 @@ namespace Bookmark.Manager.Client.Shared.Components
             await UpdateBookmarks();
         }
 
-		public void Navigate(string url)
+		public async Task Navigate(string url)
 		{
-
-		}
+            await JSRuntime.InvokeAsync<object>("open", url, "_blank");
+        }
 
         public string GetBookmarkStyle(UserBookmark bookmark) => string.Concat(GetPadding(), GetBookmarkBackgroundColor(bookmark));
 

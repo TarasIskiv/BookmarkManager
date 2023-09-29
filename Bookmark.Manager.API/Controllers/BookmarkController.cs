@@ -61,11 +61,11 @@ namespace Bookmark.Manager.API.Controllers
         }
 
         [HttpPut("UpdateBookmark")]
-        public async Task<IActionResult> UpdateBookmark([FromBody] EditableBookmarkPayload editableBookmark)
+        public async Task<IActionResult> UpdateBookmark([FromQuery] int bookmarkId, [FromBody] EditableBookmarkPayload editableBookmark)
         {
             try
             {
-                await _bookmarkService.UpdateBookmark(editableBookmark);
+                await _bookmarkService.UpdateBookmark(bookmarkId, editableBookmark);
                 return Ok();
             }
             catch (Exception)

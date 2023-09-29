@@ -51,9 +51,10 @@ namespace Bookmark.Manager.Logic.Implementation
             await UpdateBookmarksCache(userId, bookmark.FolderId);
         }
 
-        public async Task UpdateBookmark(EditableBookmarkPayload bookmark)
+        public async Task UpdateBookmark(int bookmarkId, EditableBookmarkPayload bookmark)
         {
             var dbBookmark = bookmark.ToBookmark();
+            dbBookmark.Id = bookmarkId;
             await _bookmarkRepository.UpdateBookmark(dbBookmark);
             await UpdateBookmarksCache(bookmark.UserId, bookmark.FolderId);
         }
