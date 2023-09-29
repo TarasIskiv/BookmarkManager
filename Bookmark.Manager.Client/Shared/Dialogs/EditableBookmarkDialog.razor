@@ -4,8 +4,8 @@
             <DataAnnotationsValidator />
             <MudTextField T="string" Label="Name" @bind-Value="@EditableBookmark.Name" For="(() => EditableBookmark.Name)" />
             <MudTextField T="string" Label="URL" @bind-Value="@EditableBookmark.URL" For="(() => EditableBookmark.URL)" />
-            <MudColorPicker Label="Basic Color Picker" @bind-Text="@EditableBookmark.Color" Style="@($"color: {EditableBookmark.Color ?? Colors.Grey.Default};")" Placeholder="Select Color" />
-        </EditForm>
+            <MudColorPicker Label="Basic Color Picker" DisableAlpha="true" DisableInputs="true" DisableModeSwitch="true" @bind-Text="@EditableBookmark.Color" Style="@($"color: {EditableBookmark.Color ?? Colors.Grey.Default};")" Placeholder="Select Color" />
+        </EditForm> 
     </DialogContent>
     <DialogActions>
         <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween" Style="width:100%; padding: 0 1em">

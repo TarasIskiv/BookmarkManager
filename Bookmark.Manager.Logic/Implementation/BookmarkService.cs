@@ -18,8 +18,9 @@ namespace Bookmark.Manager.Logic.Implementation
             _cacheService = cacheService;
         }
 
-        public async Task AddBookmark(EditableBookmarkPayload bookmarkPayload)
+        public async Task AddBookmark(int userId, EditableBookmarkPayload bookmarkPayload)
         {
+            bookmarkPayload.UserId = userId;
             var bookmark = bookmarkPayload.ToBookmark();
             await _bookmarkRepository.AddBookmark(bookmark);
             await UpdateBookmarksCache(bookmarkPayload.UserId, bookmarkPayload.FolderId);

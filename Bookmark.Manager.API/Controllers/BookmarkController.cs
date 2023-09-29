@@ -51,7 +51,7 @@ namespace Bookmark.Manager.API.Controllers
         {
             try
             {
-                await _bookmarkService.AddBookmark(editableBookmark);
+                await _bookmarkService.AddBookmark(UserId, editableBookmark);
                 return Ok();
             }
             catch (Exception)
@@ -65,7 +65,7 @@ namespace Bookmark.Manager.API.Controllers
         {
             try
             {
-                await _bookmarkService.AddBookmark(editableBookmark);
+                await _bookmarkService.UpdateBookmark(editableBookmark);
                 return Ok();
             }
             catch (Exception)

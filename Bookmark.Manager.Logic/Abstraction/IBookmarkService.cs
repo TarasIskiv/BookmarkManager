@@ -9,6 +9,6 @@ namespace Bookmark.Manager.Logic.Abstraction
         Task UpdateBookmark(EditableBookmarkPayload bookmark);
         Task RemoveBookmark(int userId, int bookmarkId);
         Task<UserBookmark> GetBookmark(int userId, int bookmarkId);
-        Task AddBookmark(EditableBookmarkPayload bookmarkPayload);
+        Task AddBookmark(int userId, EditableBookmarkPayload bookmarkPayload);
     }
 }

@@ -61,12 +61,21 @@ namespace Bookmark.Manager.Client.Shared.Components
 			await BookmarksChanged.InvokeAsync();
 		}
 
+        public async Task DeleteBookmark(int Id)
+        {
+            await BookmarkService.RemoveBookmark(Id);
+            await UpdateBookmarks();
+        }
+
 		public void Navigate(string url)
 		{
 
 		}
 
-		public string GetBookmarkBackgroundColor(UserBookmark bookmark) => $"background:{bookmark.Color ?? Colors.Grey.Default}"; 
+        public string GetBookmarkStyle(UserBookmark bookmark) => string.Concat(GetPadding(), GetBookmarkBackgroundColor(bookmark));
+
+		private string GetBookmarkBackgroundColor(UserBookmark bookmark) => $"background-color:{bookmark.Color ?? Colors.Grey.Default} !important;";
+        private string GetPadding() => "padding: 0 1em;";
 	}
 }
 
