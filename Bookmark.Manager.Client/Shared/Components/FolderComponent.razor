@@ -1,12 +1,16 @@
-﻿@if (Folders.Count() > 0)
-{
-    <MudStack Row="true" Justify="Justify.SpaceBetween" Style="width:100%">
-        <MudText Typo="Typo.h5">Folders</MudText>
-        <div>
-            <MudButton Variant="Variant.Filled" Disabled="IsRemovingDisabled" Color="Color.Error" OnClick="@RemoveFolder">Remove Current Folder</MudButton>
+﻿<MudStack Row="true" Justify="Justify.SpaceBetween" Style="width:100%">
+    <MudText Typo="Typo.h5">Folders</MudText>
+    <div>
+        <MudButton Variant="Variant.Filled" Disabled="IsRemovingDisabled" Color="Color.Error" OnClick="@RemoveFolder">Remove Current Folder</MudButton>
+        @if (Folders.Count() > 0)
+        {
             <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="@AddNewFolder">Add Folder</MudButton>
-        </div>
-    </MudStack>
+        }
+    </div>
+</MudStack>
+@if (Folders.Count() > 0)
+{
+    
     <hr />
     <br />
     <div id="unique_id_scroll_section" class="ma-0" style="height:30vh;overflow: auto;">

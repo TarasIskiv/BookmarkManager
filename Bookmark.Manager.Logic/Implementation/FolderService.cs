@@ -1,3 +1,4 @@
+using Bookmark.Manager.Core.CustomModels;
 using Bookmark.Manager.Core.Helpers;
 using Bookmark.Manager.Core.Models;
 using Bookmark.Manager.Core.Payloads;
@@ -28,6 +29,21 @@ namespace Bookmark.Manager.Logic.Implementation
         public async Task<Folder> GetFolder(int userId, int folderId)
         {
             return await _folderRepository.GetFolder(userId, folderId);
+        }
+
+        public async Task<List<FolderBreadcrumb>> GetFolderBreadcrumbs(int userId, int folderId)
+        {
+            var folder = await _folderRepository.GetFolder(userId, folderId);
+            if (folder is null) return new();
+            var folderStack = new Stack<Folder>();
+            folderStack.Push(folder);
+            while (folder.ParentFolderId is not null)
+            {
+                folder = await _folderRepository.GetFolder(userId, folder.ParentFolderId.Value);
+                folderStack.Push(folder);
+            }
+
+            return folderStack.Select(f => new FolderBreadcrumb() { Id = f.Id, Name = f.Name }).ToList();
         }
 
         public async Task<List<Folder>> GetNestedFolders(int userId, int? parentFolderId)

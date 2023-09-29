@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="CustomModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomModels\" />
+  </ItemGroup>
 </Project>

@@ -88,6 +88,20 @@ namespace Bookmark.Manager.API.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet("GetFolderBreadcrumbs")]
+        public async Task<IActionResult> GetFolderBreadcrumbs([FromQuery] int folderId)
+        {
+            try
+            {
+                var breadcrumbs = await _folderService.GetFolderBreadcrumbs(UserId, folderId);
+                return Ok(breadcrumbs);
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
 

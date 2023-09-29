@@ -5,7 +5,8 @@ namespace Bookmark.Manager.Core.Helpers
 {
 	public enum CacheKey
 	{
-        AuthToken
+        AuthToken,
+        Breadcrumb
     }
 }
 

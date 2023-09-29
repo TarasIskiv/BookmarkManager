@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using Bookmark.Manager.Client.Logic.Abstraction;
+using Bookmark.Manager.Core.CustomModels;
 using Bookmark.Manager.Core.Models;
 using Bookmark.Manager.Core.Payloads;
 
@@ -22,6 +23,12 @@ namespace Bookmark.Manager.Client.Logic.Implementation
         {
             var folder = await _client.GetFromJsonAsync<Folder>($"api/Folder/GetFolder?folderId={folderId}");
             return folder ?? new();
+        }
+
+        public async Task<List<FolderBreadcrumb>> GetFolderBreadcrumbs(int folderId)
+        {
+            var breadcrumbs = await _client.GetFromJsonAsync<List<FolderBreadcrumb>>($"api/Folder/GetFolderBreadcrumbs?folderId={folderId}");
+            return breadcrumbs ?? new();
         }
 
         public async Task<List<Folder>> GetNestedFolders(int? parentFolderId)

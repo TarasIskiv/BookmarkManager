@@ -1,3 +1,4 @@
+using Bookmark.Manager.Core.CustomModels;
 using Bookmark.Manager.Core.Models;
 
 namespace Bookmark.Manager.Repository.Abstraction

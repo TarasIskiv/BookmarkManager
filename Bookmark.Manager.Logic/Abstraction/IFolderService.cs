@@ -1,3 +1,4 @@
+using Bookmark.Manager.Core.CustomModels;
 using Bookmark.Manager.Core.Models;
 using Bookmark.Manager.Core.Payloads;
 
@@ -10,5 +11,6 @@ namespace Bookmark.Manager.Logic.Abstraction
         Task<List<Folder>> GetNestedFolders(int userId, int? parentFolderId);
         Task UpdateFolder(int folderId, EditableFolderPayload folder);
         Task RemoveFolder(int userId, int folderId);
+        Task<List<FolderBreadcrumb>> GetFolderBreadcrumbs(int userId, int folderId);
     }
 }

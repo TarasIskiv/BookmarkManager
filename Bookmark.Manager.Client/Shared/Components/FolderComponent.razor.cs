@@ -15,6 +15,7 @@ namespace Bookmark.Manager.Client.Shared.Components
 		[Parameter] public int? CurrentFolderId { get; set; }
         [Parameter] public EventCallback FoldersRefreshed { get; set; } = default!;
         [Parameter] public EventCallback<int> FolderNavigated { get; set; } = default!;
+		[Parameter] public EventCallback FolderRemoved { get; set; }
         [Inject] public IDialogService DialogService { get; set; } = default!;
 		[Inject] public IFolderService FolderService { get; set; } = default!;
 
@@ -47,7 +48,7 @@ namespace Bookmark.Manager.Client.Shared.Components
 		public async void AddNewFolder()
 		{
 			var parameters = new DialogParameters<EditableFolderDialog>();
-            parameters.Add(param => param.EditableFolder, new EditableFolderPayload());
+            parameters.Add(param => param.EditableFolder, new EditableFolderPayload() { ParentFolderId = CurrentFolderId});
 			var dialog = DialogService.Show<EditableFolderDialog>("Create Folder", parameters, _dialogOptions);
 			var result = await dialog.Result;
 
@@ -62,6 +63,7 @@ namespace Bookmark.Manager.Client.Shared.Components
 		public async Task RemoveFolder()
 		{
 			await FolderService.RemoveFolder(CurrentFolderId!.Value);
+			await FolderRemoved.InvokeAsync();
 		}
 
 		public async Task Navigate(int folderId)
