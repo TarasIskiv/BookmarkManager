@@ -8,6 +8,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.122" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Seeder\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Seeder\" />
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

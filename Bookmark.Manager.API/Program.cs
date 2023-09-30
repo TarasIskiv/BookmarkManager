@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Bookmark.Manager.Logic.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +74,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+//Seeder
+await SeederService.Seed(app);
+
 
 app.UseCors(cors => cors
     .AllowAnyMethod()
