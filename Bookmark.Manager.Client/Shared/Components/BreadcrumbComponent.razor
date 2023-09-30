@@ -1,4 +1,11 @@
 ﻿<MudStack Row="true" Justify="Justify.Center" Style="width:100%;height: 10vh">
-    <MudBreadcrumbs Items="@Breadcrumbs" Separator=">"></MudBreadcrumbs>
+    <MudBreadcrumbs Items="@Breadcrumbs" Separator=">">
+        <ItemTemplate>
+            <MudLink Typo="Typo.h5" Href="@context.Href" Color="Color.Primary">@context.Text.ToUpper()</MudLink>
+        </ItemTemplate>
+        <SeparatorTemplate>
+            <MudIcon Icon="@Icons.Material.Filled.KeyboardDoubleArrowRight" Color="Color.Secondary"></MudIcon>
+        </SeparatorTemplate>
+        </MudBreadcrumbs>
 </MudStack>
 <hr/>
